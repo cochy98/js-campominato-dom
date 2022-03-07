@@ -44,3 +44,7 @@ footer > p{
 #grid>.cell.active{
     background-color: rgb(53, 124, 255);
 }
+
+#grid>.cell.bomb{
+    background-color: rgb(196, 19, 19);
+}

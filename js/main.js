@@ -48,12 +48,16 @@ function createNewCell (number, gridRow){
 function newGame (){
     let gridElements;
     let gridRow;
+    let totalScore = 0;
 
     // Vado a richiamare tramite ID il div 'grid'
     const grid = document.getElementById('grid');
-
     // Faccio un reset ad ogni nuova partita
     grid.innerHTML = "";
+
+    // Vado a richiamare tramite ID l'elemento html dove inserire i progressi del gioco
+    const gameDescription = document.getElementById('game-description');
+
 
     // Quando clicco sul bottone seleziono il livello di difficoltà associato
     const levelDifficult = document.getElementById('level-difficult').value;
@@ -77,21 +81,32 @@ function newGame (){
 
     gridRow = Math.sqrt(gridElements);
 
+    // Genero la lista di 16 bombe casuali
+    const bombs = generateBombList(16, gridElements);
+    console.warn(`Bombe random: ${bombs}`);
+
     // Ciclo per 'gridElements' volte e aggiungo ogni volta una nuova 'cell' alla 'grid'
     for (let i = 1; i <= gridElements; i++){
         const currentCell = createNewCell(i, gridRow);
 
         // aggiungo l'evento di click e i suoi effetti
         currentCell.addEventListener('click', function() {
-            this.classList.toggle('active');
+            if(!bombs.includes(i)){
+                // Non ho beccato una cella equivalente ad una bomba, posso incrementare il punteggio
+                this.classList.toggle('active');
+                totalScore++;
+                gameDescription.innerHTML = `Il tuo punteggio è ${totalScore}`;
+            } else{
+                this.classList.toggle('bomb');
+                gameDescription.innerHTML = `Mi dispiace, hai beccato una bomba :(<br>TOTAL SCORE: ${totalScore}`;
+            }
         });
 
         // Aggiungo la cella appena creata alla griglia
         grid.appendChild(currentCell);
     }
 
-    const bombs = generateBombList(16, gridElements);
-    console.warn(`Bombe random: ${bombs}`);
+
 }
 
 
