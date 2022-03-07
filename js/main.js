@@ -22,6 +22,9 @@ const playBtn = document.querySelector('#play');
 // Avvio una nuova partita al click del pulsante play
 playBtn.addEventListener('click', function(){
     newGame ();
+
+    
+
 });  
 
 
@@ -80,11 +83,54 @@ function newGame (){
 
         // aggiungo l'evento di click e i suoi effetti
         currentCell.addEventListener('click', function() {
-            console.log(this); // this = currentCell;
             this.classList.toggle('active');
         });
 
         // Aggiungo la cella appena creata alla griglia
         grid.appendChild(currentCell);
     }
+
+    const bombs = generateBombList(16, gridElements);
+    console.warn(`Bombe random: ${bombs}`);
+}
+
+
+/**
+ * Questa funzione permette di generare un numero random che non sia ripetuto, a partire da un intervallo definito.
+ * @param {*} numbsBlackList    Lista dei numeri da escludere, perchè già presenti in lista
+ * @param {*} min               Valore minimo di partenza
+ * @param {*} max               Valore massimo di random
+ * @returns                     Restituisce il numero random
+ */
+function generateRandomNumber (numbsBlackList, min, max){
+    let check = false;
+    let randomNumber;
+
+    while (!check){
+        randomNumber = Math.floor( (Math.random() * max) + min);
+        if (!numbsBlackList.includes(randomNumber)){
+            check = true;
+        }
+    }
+
+    return randomNumber;
+}
+
+
+/**
+/** Questa funzione restituisce una lista di bombe non ripetute.
+ * @param {*} numBomb       Numero massimo di bombe che si vogliono creare
+ * @param {*} numberCells   In base al numero di celle sarà determinato il parametro per il max random number 
+ * @returns                 Restituisce una lista con le bombe
+ */
+function generateBombList(numBomb, numberCells){
+    // Creo un array 'blacklist' al suo interno ci saranno le bombe random già create e che quindi non devono essere ripetute
+    const bombList = [];
+        
+    for (let i = 0 ; i < numBomb ; i++){
+        // richiamo funzione per generare bombe casuali, ne genero massimo 16 ogni volta escludo quella già inserita
+        // mi genero un nuovo numero randomico assente nella blacklist
+        bombList.push(generateRandomNumber(bombList, 1, numberCells));
+    }
+    return bombList;
 }
