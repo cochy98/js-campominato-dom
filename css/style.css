@@ -1,0 +1,46 @@
+.navbar > .container-fluid{
+    height: 60px;
+}
+
+.navbar .navbar-brand > h2{
+    font-weight: 600;
+}
+
+main{
+    height: calc(100vh - 76px - 60px);
+    background-color: #011627;
+}
+
+footer{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer > p{
+    margin: 0;
+}
+
+#grid{
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#grid>.cell{
+    /* width: calc(100% / 10);
+    height: calc(100% / 10); */
+    border: 2px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: crosshair;
+}
+
+#grid>.cell.active{
+    background-color: rgb(53, 124, 255);
+}
