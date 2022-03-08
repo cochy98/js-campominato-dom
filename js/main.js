@@ -22,9 +22,6 @@ const playBtn = document.querySelector('#play');
 // Avvio una nuova partita al click del pulsante play
 playBtn.addEventListener('click', function(){
     newGame ();
-
-    
-
 });  
 
 
@@ -49,6 +46,7 @@ function newGame (){
     let gridElements;
     let gridRow;
     let totalScore = 0;
+    let isGameOver = false;
 
     // Vado a richiamare tramite ID il div 'grid'
     const grid = document.getElementById('grid');
@@ -91,22 +89,24 @@ function newGame (){
 
         // aggiungo l'evento di click e i suoi effetti
         currentCell.addEventListener('click', function() {
-            if(!bombs.includes(i)){
-                // Non ho beccato una cella equivalente ad una bomba, posso incrementare il punteggio
-                this.classList.toggle('active');
-                totalScore++;
-                gameDescription.innerHTML = `Il tuo punteggio è ${totalScore}`;
-            } else{
-                this.classList.toggle('bomb');
-                gameDescription.innerHTML = `Mi dispiace, hai beccato una bomba :(<br>TOTAL SCORE: ${totalScore}`;
+            // Se non ho beccato una bomba posso continuare a giocare
+            if(!isGameOver){
+                if(!bombs.includes(i)){
+                    // Non ho beccato una cella equivalente ad una bomba, posso incrementare il punteggio
+                    this.classList.toggle('active');
+                    totalScore++;
+                    gameDescription.innerHTML = `Il tuo punteggio è ${totalScore}`;
+                } else{
+                    this.classList.toggle('bomb');
+                    gameDescription.innerHTML = `Mi dispiace, hai beccato una bomba :(<br>TOTAL SCORE: ${totalScore}`;
+                    // Ho beccato una bomba, non posso continuare il gioco
+                    isGameOver = true;
+                }
             }
         });
-
         // Aggiungo la cella appena creata alla griglia
         grid.appendChild(currentCell);
     }
-
-
 }
 
 
