@@ -103,7 +103,7 @@ function newGame (){
                     isGameOver = true;
                 }
             }
-        });
+        }, {once: true}); // Aggiungendo 'once: true' il listner sulle celle potrà essere eseguito una sola volta
         // Aggiungo la cella appena creata alla griglia
         grid.appendChild(currentCell);
     }
