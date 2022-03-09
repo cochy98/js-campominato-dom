@@ -9,6 +9,7 @@
 main{
     height: calc(100vh - 76px - 60px);
     background-color: #011627;
+    overflow: auto;
 }
 
 footer{

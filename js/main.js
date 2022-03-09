@@ -55,6 +55,7 @@ function newGame (){
 
     // Vado a richiamare tramite ID l'elemento html dove inserire i progressi del gioco
     const gameDescription = document.getElementById('game-description');
+    gameDescription.innerHTML = 'Inizia a giocare, clicca su una casella e fai attenzione alle bombe ;)'
 
 
     // Quando clicco sul bottone seleziono il livello di difficoltà associato
