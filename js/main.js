@@ -35,6 +35,7 @@ playBtn.addEventListener('click', function(){
  */
 function createNewCell (number, gridRow){
     const newCell = document.createElement('div');
+    newCell.id = number;
     newCell.classList.add('cell');
     newCell.style.width = `calc(100% / ${gridRow})`;
     newCell.style.height = newCell.style.width;
@@ -102,6 +103,9 @@ function newGame (){
                     gameDescription.innerHTML = `Mi dispiace, hai beccato una bomba :(<br>TOTAL SCORE: ${totalScore}`;
                     // Ho beccato una bomba, non posso continuare il gioco
                     isGameOver = true;
+                    bombs.forEach((element) => {
+                        document.getElementById(element).classList.add('bomb');
+                    });
                 }
             }
         }, {once: true}); // Aggiungendo 'once: true' il listner sulle celle potrà essere eseguito una sola volta
